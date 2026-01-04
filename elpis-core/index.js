@@ -63,9 +63,9 @@ module.exports = {
     //注册全局中间件
     try {
       require(`${app.businessPath}${sep}middleware.js`)(app);
-      console.log(`--[start] load global middleware file.`);
+      console.log(`-- [start] load global middleware file.`);
     } catch (e) {
-      console.log("[Exception] there is no middleware file.");
+      console.log("[exception] there is no global middleware file.");
     }
 
     //注册路由
