@@ -44,7 +44,7 @@ module.exports = (app) => {
     for (let i = 0, len = names.length; i < len; ++i) {
       if (i === len - 1) {
         const ControllerModule = require(path.resolve(file))(app);
-        tempController[name[i]] = new ControllerModule();
+        tempController[names[i]] = new ControllerModule();
       } else {
         if (!tempController[names[i]]) {
           tempController[names[i]] = {};
