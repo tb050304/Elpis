@@ -14,6 +14,23 @@ module.exports = (app) => {
         noCache: true,
         trimBlocks: true,
       },
-    })
+    }),
   );
+
+  //引入ctx.body解析中间件
+  const bodyParser = require("koa-bodyparser");
+  app.use(
+    bodyParser({
+      formList: "1000mb",
+      enableTypes: ["form", "json", "text"],
+    }),
+  );
+  //引入异常捕获中间件
+  app.use(app.middlewares.errorHandle);
+
+  //引入签名合法性校验
+  app.use(app.middlewares.apiSignVerify);
+
+  //引入API参数校验
+  app.use(app.middlewares.apiParamsVerify);
 };

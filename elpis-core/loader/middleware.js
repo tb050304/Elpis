@@ -31,7 +31,7 @@ module.exports = (app) => {
 
     //截取路径app/middlewares/custom-module/custom-middleware=>custom-module/custom-middleware
     name = name.substring(
-      name.lastIndexOf(`middleware${sep}`) + `middlewares${sep}`.length,
+      name.lastIndexOf(`middleware${sep}`) + `middleware${sep}`.length,
       name.lastIndexOf(".")
     );
 
