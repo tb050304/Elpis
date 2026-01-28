@@ -4,7 +4,10 @@
   "description": "Hello Elpis\r feacture分支修改",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --quiet --ext js,vue ."
+    "lint": "eslint --quiet --ext js,vue .",
+    "dev": "set _ENV=local&& nodemon ./index.js",
+    "beta": "set _ENV=beta&& node ./index.js",
+    "prod": "set _ENV=production&& node ./index.js"
   },
   "repository": {
     "type": "git",
