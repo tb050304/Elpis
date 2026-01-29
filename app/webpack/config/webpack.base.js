@@ -109,6 +109,8 @@ module.exports = {
     //把第三方库暴露到window context下
     new webpack.ProvidePlugin({
       Vue: "vue",
+      axios: "axios",
+      _: "lodash",
     }),
     //定义全局常量
     new webpack.DefinePlugin({
