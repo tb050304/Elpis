@@ -145,6 +145,7 @@ module.exports = {
         },
         common: {
           //公共模块
+          test: /[\\/]common|wdigets[\\/]/,
           name: "common", //模块名称
           minChunks: 2, //被两处引用即被归为公共模块
           minSize: 1, //最小分割文件大小（1 byte）

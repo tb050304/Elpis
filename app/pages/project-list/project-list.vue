@@ -59,7 +59,6 @@ async function getModelList() {
     return;
   }
   modelList.value = res.data;
-  console.log(modelList.value);
 }
 
 onMounted(() => {
@@ -67,7 +66,8 @@ onMounted(() => {
 });
 
 const onEnter = (projItem) => {
-  console.log(`跳转到${projItem.name}`);
+  const { origin } = window.location;
+  window.open(`${origin}/view/dashboard#${projItem.homePage}`);
 };
 </script>
 
