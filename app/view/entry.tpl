@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <title>{{ name }}</title>
@@ -11,8 +11,6 @@
     <input id="env" value="{{ env }}" style="display: none" />
     <input id="options" value="{{ options }}" style="display: none" />
   </body>
-  <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-md5@0.8.3/src/md5.min.js"></script>
   <script type="text/javascript">
     try {
       window.env = document.getElementById("env").value;
