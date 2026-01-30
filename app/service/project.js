@@ -1,21 +1,12 @@
 module.exports = (app) => {
   const BaseService = require("./base")(app);
+  const modelList = require("../../model/index.js")(app);
   return class ProjectService extends BaseService {
-    async getList() {
-      return [
-        {
-          name: "project1",
-          desc: "project1 desc",
-        },
-        {
-          name: "project2",
-          desc: "project2 desc",
-        },
-        {
-          name: "project3",
-          desc: "project3 desc",
-        },
-      ];
+    /**
+     * 获取所有模型与项目的结构化数据
+     */
+    async getModelList() {
+      return modelList;
     }
   };
 };
