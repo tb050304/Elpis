@@ -20,6 +20,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.24.0",
+    "@babel/runtime": "^7.28.6",
+    "@element-plus/icons-vue": "^2.3.2",
     "ajv": "^6.10.2",
     "axios": "^0.19.2",
     "echarts": "^5.5.0",
@@ -76,7 +78,7 @@
     "mocha": "^6.1.4",
     "style-loader": "^0.14.1",
     "supertest": "^4.0.2",
-    "terser-webpack-plugin": "^2.3.5",
+    "terser-webpack-plugin": "^5.3.16",
     "url-loader": "^4.1.1",
     "validate-commit-msg": "~2.14.0",
     "vue-loader": "^17.2.2",
