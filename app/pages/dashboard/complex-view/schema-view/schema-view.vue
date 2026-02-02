@@ -1,7 +1,27 @@
 <template>
-  <h1>schema-view</h1>
+  <el-row class="schema-view">
+    <search-panel></search-panel>
+    <table-panel></table-panel>
+  </el-row>
 </template>
 
-<script setup></script>
+<script setup>
+import SearchPanel from "./complex-view/search-panel/search-panel.vue";
+import TablePanel from "./complex-view/table-panel/table-panel.vue";
+import { useSchema } from "./hook/schema.js";
 
-<style lang="less" scoped></style>
+const { api } = useSchema();
+console.log(api.value);
+setTimeout(() => {
+  console.log(api.value);
+}, 1000);
+</script>
+
+<style lang="less" scoped>
+.schema-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+</style>
