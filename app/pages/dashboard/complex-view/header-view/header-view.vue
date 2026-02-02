@@ -88,6 +88,7 @@ watch(
   () => {
     setActiveKey();
   },
+  { deep: true },
 );
 
 watch(

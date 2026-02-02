@@ -66,8 +66,6 @@ const setActiveKey = function () {
       const siderMenuList = hMenuItem.siderConfig.menu;
       siderMenuItem = menuStore.findFirstMenuItem(siderMenuList); //找出左侧菜单中的第一项
       if (siderMenuItem) {
-        //TODO:处理选中菜单逻辑
-        console.log("点击了------------");
         handleMenuSelect(siderMenuItem.key);
       }
     }
@@ -89,6 +87,7 @@ watch(
     setMenuList();
     setActiveKey();
   },
+  { deep: true },
 );
 
 onMounted(() => {
