@@ -3,4 +3,6 @@ module.exports = (app, router) => {
 
   //用户输入http://ip:port/view/xxxx能渲染出对应的页面
   router.get("/view/:page", ViewController.renderPage.bind(ViewController));
+  //用户输入http://ip:port/view/xxxx/xx/xx/*能渲染出对应的页面
+  router.get("/view/:page/*", ViewController.renderPage.bind(ViewController));
 };

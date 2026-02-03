@@ -119,7 +119,7 @@ const handleMenuSelect = function (menuKey) {
   };
 
   router.push({
-    path: `/sider${pathMap[moduleType]}`,
+    path: `/view/dashboard/sider${pathMap[moduleType]}`,
     query: {
       key: route.query.key,
       sider_key: key,

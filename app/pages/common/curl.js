@@ -18,6 +18,17 @@ const curl = ({
   //接口签名处理（让接口变动态）
   const signKey = "dafahhjdioshiahdnadhiahjojsjdijisa4830";
   const st = Date.now();
+
+  const dtoHeaders = {
+    ...headers,
+    s_st: st,
+    s_sign: md5(`${signKey}_${st}`),
+  };
+
+  if (url.indexOf("/api/proj") > -1 && window.projKey) {
+    dtoHeaders.proj_key = window.projKey;
+  }
+
   //构造请求参数(把参数转换为 axios 参数)
   const ajaxStting = {
     url,
@@ -26,11 +37,7 @@ const curl = ({
     data,
     responseType,
     timeout,
-    headers: {
-      ...headers,
-      s_st: st,
-      s_sign: md5(`${signKey}_${st}`),
-    },
+    headers: dtoHeaders,
   };
   return axios
     .request(ajaxStting)
@@ -47,6 +54,8 @@ const curl = ({
           ElMessage.error("请求参数异常");
         } else if (code === 445) {
           ElMessage.error("请求不合法");
+        } else if (code === 446) {
+          ElMessage.error("缺少项目必要参数");
         } else if (code === 50000) {
           ElMessage.error(message);
         } else {

@@ -39,19 +39,46 @@
 
         //当moduleType===schema时
         schemaConfig:{
-            api:'/api/user',//数据源API（遵循 RESTFUL 规范）
+            api:'',//数据源API（遵循 RESTFUL 规范）
             schema:{//板块数据结构
                 type:'object',
                 properties:{
                     key:{
                         ...schema,//标准 schema 配置
                         type:'',//字段类型
-                        label:''//字段的中文名
+                        label:''//字段的中文名,
+                        //字段在 table 中的相关配置
+                        tableOption:{
+                            ...elTableColumnConfig, //标准el-table-column 配置
+                            toFixed:0,//保留小数点后几位
+                            visiable:true,// 默认为true(false或不配置时，表示不在表单中显示)
+                        }
                     },
                     ...
                 }
             }, 
-             tableConfig:{},//table相关配置
+            //table相关配置
+             tableConfig:{
+                headeruButtons:[{
+                    label:'',//按钮中文名
+                    eventKey:'',//按钮事件名
+                    eventOption:{},//按钮事件具体配置
+                    ...elButtonConfig//标准el-button配置
+                }...],
+                rowButtons:[{
+                    label:'',//按钮中文名
+                    eventKey:'',//按钮事件名
+                     eventOption:{
+                        //当eventKey==='remove'
+                        params:{
+                            //paramKey=参数的键值
+                            //rowValueKey=参数值 (当格式为 schema::tableKey的时候，到table 中找相应的字段)
+                            paramKey:rowValueKey
+                        }
+                     },//按钮事件具体配置
+                    ...elButtonConfig//标准el-button配置
+                }...],
+             },
              searchConfig:{},//search-bar相关配置
              components:{},//模块组件
         }
