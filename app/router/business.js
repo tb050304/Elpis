@@ -8,4 +8,8 @@ module.exports = (app, router) => {
     "/api/proj/product/list",
     businessController.getList.bind(businessController),
   );
+  router.get(
+    "/api/proj/product_enum/list",
+    businessController.getProductEnumList.bind(businessController),
+  );
 };

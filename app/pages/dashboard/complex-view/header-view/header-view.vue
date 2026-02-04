@@ -114,14 +114,13 @@ const handleProjectCommand = function (event) {
   const projectItem = projectStore.projectList.find(
     (item) => item.key === event,
   );
-  console.log(projectItem);
-
   if (!projectItem || !projectItem.homePage) {
     return;
   }
-  const { origin, pathname } = window.location;
-  window.location.replace(`${origin}${pathname}#${projectItem.homePage}`);
-  window.location.reload();
+  const { host } = window.location;
+  window.location.replace(
+    `http://${host}/view/dashboard${projectItem.homePage}`,
+  );
 };
 </script>
 

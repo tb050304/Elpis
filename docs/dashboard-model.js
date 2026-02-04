@@ -51,8 +51,20 @@
                         tableOption:{
                             ...elTableColumnConfig, //标准el-table-column 配置
                             toFixed:0,//保留小数点后几位
-                            visiable:true,// 默认为true(false或不配置时，表示不在表单中显示)
-                        }
+                            visiable:true,// 默认为true(false表示不在表单中显示)
+                        },
+                         //字段在 schema-bar 中的相关配置
+                         searchOption:{
+                            ...eleComponentConfig,//标准 el-component-column 配置
+                            comType:'',//配置组件类型 input/select/......
+                            default:'',//默认值
+
+                            //comType==='select'
+                            enumList:[],//下拉框可选项
+
+                            //comType==='dynamicSelect'
+                            api:''
+                         }
                     },
                     ...
                 }

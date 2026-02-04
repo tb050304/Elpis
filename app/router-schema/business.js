@@ -28,4 +28,7 @@ module.exports = {
       },
     },
   },
+  "/api/proj/product_enum/list": {
+    get: {},
+  },
 };

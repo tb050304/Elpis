@@ -79,6 +79,11 @@ const props = defineProps({
   api: String,
 
   /**
+   * api 请求参数，请求 API 时携带
+   */
+  apiParams: Object,
+
+  /**
    * buttons 操作做按钮相关配置，结构如下：
    * [{
    *    label:'',//按钮中文名
@@ -90,7 +95,7 @@ const props = defineProps({
   buttons: Array,
 });
 
-const { schema, api, buttons } = toRefs(props);
+const { schema, api, apiParams, buttons } = toRefs(props);
 
 const emit = defineEmits(["operate"]);
 
@@ -113,7 +118,7 @@ onMounted(() => {
 });
 
 watch(
-  [schema, api],
+  [schema, api, apiParams],
   () => {
     initData();
   },
@@ -148,6 +153,7 @@ const fetchTableData = async () => {
     method: "get",
     url: `${api.value}/list`,
     query: {
+      ...apiParams.value,
       page: currentPage.value,
       size: pageSize.value,
     },

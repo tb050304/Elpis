@@ -26,12 +26,37 @@ module.exports = {
               tableOption: {
                 width: 200,
               },
+              searchOption: {
+                comType: "dynamicSelect",
+                api: "/api/proj/product_enum/list",
+              },
             },
             price: {
               type: "number",
               label: "价格",
               tableOption: {
                 width: 200,
+              },
+              searchOption: {
+                comType: "select",
+                enumList: [
+                  {
+                    label: "全部",
+                    value: -999,
+                  },
+                  {
+                    label: "￥39.9",
+                    value: 39.9,
+                  },
+                  {
+                    label: "￥399",
+                    value: 399,
+                  },
+                  {
+                    label: "￥1399",
+                    value: 1399,
+                  },
+                ],
               },
             },
             inventory: {
@@ -40,11 +65,17 @@ module.exports = {
               tableOption: {
                 width: 200,
               },
+              searchOption: {
+                comType: "input",
+              },
             },
             create_time: {
               type: "string",
               label: "创建时间",
               tableOption: {},
+              searchOption: {
+                comType: "dateRange",
+              },
             },
           },
         },
