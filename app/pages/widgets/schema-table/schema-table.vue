@@ -62,7 +62,7 @@ const props = defineProps({
                         ...schema,//标准 schema 配置
                         type:'',//字段类型
                         label:''//字段的中文名,
-                        tableOption:{
+                        option:{
                             ...elTableColumnConfig, //标准el-table-column 配置
                             visiable:true,// 默认为true(false或不配置时，表示不在表单中显示)
                         }

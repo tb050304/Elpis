@@ -8,7 +8,7 @@ const { sep } = path;
  * 通过env.config覆盖default.config加载到app.config中
  * 目录下对应的config配置
  * 默认配置config/config.default.js
- * 本地配置config/config.loacl.js
+ * 本地配置config/config.local.js
  * 测试配置config/config.beta.js
  * 生产配置config/config.prod.js
  */
@@ -18,12 +18,11 @@ module.exports = (app) => {
   //获取default.config
   let defaultConfig = {};
   try {
-    defaultConfig = require(path.resolve(
-      configPath,
-      `.${sep}config.default.js`
-    ));
+    defaultConfig = require(
+      path.resolve(configPath, `.${sep}config.default.js`),
+    );
   } catch (e) {
-    console.log("[expection] there is no default.config file");
+    console.log("[exception] there is no default.config file");
   }
 
   //获取env.config
@@ -40,7 +39,7 @@ module.exports = (app) => {
       envConfig = require(path.resolve(configPath, `.${sep}config.prod.js`));
     }
   } catch (e) {
-    console.log("[expection] there is no env.config file");
+    console.log("[exception] there is no env.config file");
   }
   //覆盖并加载config配置
   app.config = Object.assign({}, defaultConfig, envConfig);

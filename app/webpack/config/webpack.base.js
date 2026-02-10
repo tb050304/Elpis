@@ -84,12 +84,7 @@ module.exports = {
     ],
   },
   //产物输出路径，因为开发和生产环境输出不一致，所以在各自环境中自行配置
-  output: {
-    filename: "js/[name]_[chunkhash:8].bundle.js",
-    path: path.join(process.cwd(), "./app/public/dist/prod"),
-    publicPath: "/dist/prod",
-    crossOriginLoading: "anonymous",
-  },
+  output: {},
   //配置模块解析的具体行为（定义webpack在打包时，如何找到并解析具体模块的路径）
   resolve: {
     extensions: [".js", ".vue", ".less", ".cess"],
