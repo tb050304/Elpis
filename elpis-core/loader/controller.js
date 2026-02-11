@@ -12,7 +12,7 @@ const { sep } = path;
  *         |
  *         | -- custom-controller.js
  *
- * =>app.controller.customModule.customcontroller
+ * =>app.controller.customModule.customController
  *
  */
 
@@ -20,7 +20,7 @@ module.exports = (app) => {
   //读取 app/controller/**/**.js下所有的文件
   const controllerPath = path.resolve(app.businessPath, `.${sep}controller`);
   const fileList = glob.sync(
-    path.resolve(controllerPath, `.${sep}**${sep}**.js`)
+    path.resolve(controllerPath, `.${sep}**${sep}**.js`),
   );
 
   //遍历所有文件目录，把内容加载到app.controller下
@@ -32,7 +32,7 @@ module.exports = (app) => {
     //截取路径app/controllers/custom-module/custom-controller=>custom-module/custom-controller
     name = name.substring(
       name.lastIndexOf(`controller${sep}`) + `controller${sep}`.length,
-      name.lastIndexOf(".")
+      name.lastIndexOf("."),
     );
 
     //把'-'统一改为驼峰式,custom-module/custom-controller.js=>customModule.customcontroller

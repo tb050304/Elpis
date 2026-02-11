@@ -1,5 +1,5 @@
 <template>
-  <headerContainer :title="projName">
+  <header-container :title="projName">
     <template #menu-content>
       <!-- 根据 menuStore.menuList 渲染 -->
       <el-menu
@@ -9,11 +9,11 @@
         @select="onMenuSelect"
       >
         <template v-for="item in menuStore.menuList">
-          <SubMenu
+          <sub-menu
             v-if="item.subMenu && item.subMenu.length > 0"
-            :menuItem="item"
+            :menu-item="item"
           >
-          </SubMenu>
+          </sub-menu>
           <el-menu-item v-else :index="item.key">
             {{ item.name }}
           </el-menu-item>
@@ -51,14 +51,14 @@
     <template #main-content>
       <slot name="main-content"></slot>
     </template>
-  </headerContainer>
+  </header-container>
 </template>
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { ArrowDown } from "@element-plus/icons-vue";
-import headerContainer from "$widgets/header-container/header-container.vue";
+import HeaderContainer from "$widgets/header-container/header-container.vue";
 import SubMenu from "./complex-view/sub-menu/sub-menu.vue";
 import { useMenuStore } from "$store/menu.js";
 import { useProjectStore } from "$store/project.js";
@@ -75,11 +75,20 @@ const emit = defineEmits(["menu-select"]);
 
 const activeKey = ref("");
 
+const setActiveKey = function () {
+  const menuItem = menuStore.findMenuItem({
+    key: "key",
+    value: route.query.key,
+  });
+  activeKey.value = menuItem?.key;
+};
+
 watch(
   () => route.query.key,
   () => {
     setActiveKey();
   },
+  { deep: true },
 );
 
 watch(
@@ -93,14 +102,6 @@ onMounted(() => {
   setActiveKey();
 });
 
-const setActiveKey = function () {
-  const menuItem = menuStore.findMenuItem({
-    key: "key",
-    value: route.query.key,
-  });
-  activeKey.value = menuItem?.key;
-};
-
 const onMenuSelect = function (menuKey) {
   const menuItem = menuStore.findMenuItem({
     key: "key",
@@ -113,14 +114,13 @@ const handleProjectCommand = function (event) {
   const projectItem = projectStore.projectList.find(
     (item) => item.key === event,
   );
-  console.log(projectItem);
-
   if (!projectItem || !projectItem.homePage) {
     return;
   }
-  const { origin, pathname } = window.location;
-  window.location.replace(`${origin}${pathname}#${projectItem.homePage}`);
-  window.location.reload();
+  const { host } = window.location;
+  window.location.replace(
+    `http://${host}/view/dashboard${projectItem.homePage}`,
+  );
 };
 </script>
 

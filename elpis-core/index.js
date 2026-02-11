@@ -3,7 +3,7 @@ const path = require("path");
 const { sep } = path; //兼容不同操作系统上的斜杠
 const env = require("./env");
 const middlewareLoader = require("./loader/middleware");
-const routerSchemaLoader = require("./loader/roter-schema");
+const routerSchemaLoader = require("./loader/router-schema");
 const routerLoader = require("./loader/router");
 const controllerLoader = require("./loader/controller");
 const serviceLoader = require("./loader/service");
@@ -36,6 +36,13 @@ module.exports = {
     app.env = env();
     console.log(`-- [start] env: ${app.env.get()} --`);
 
+    //加载config
+    configLoader(app);
+    console.log(`-- [start] load config done --`);
+
+    //加载extend
+    extendLoader(app);
+    console.log(`-- [start] load extend done --`);
     //加载 middleware
     middlewareLoader(app);
     console.log(`-- [start] load middleware done --`);
@@ -51,14 +58,6 @@ module.exports = {
     //加载service
     serviceLoader(app);
     console.log(`-- [start] load service done --`);
-
-    //加载config
-    configLoader(app);
-    console.log(`-- [start] load config done --`);
-
-    //加载extend
-    extendLoader(app);
-    console.log(`-- [start] load extend done --`);
 
     //注册全局中间件
     try {
