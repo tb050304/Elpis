@@ -11,6 +11,7 @@ export const useSchema = function () {
   const tableConfig = ref({});
   const searchSchema = ref({});
   const searchConfig = ref({});
+  const components = ref({});
 
   //构造schemaConfig 相关配置，输送给 schemaView 解释
   const buildData = function () {
@@ -30,10 +31,12 @@ export const useSchema = function () {
       tableConfig.value = undefined;
       searchSchema.value = {};
       searchConfig.value = undefined;
+      components.value = {};
       nextTick(() => {
         //构造 tableSchema 和 tableConfig
         tableSchema.value = buildDtoSchema(configSchema, "table");
         tableConfig.value = sConfig.tableConfig;
+
         //构造 searchhSchema和searchConfig
         const dtoSearchSchema = buildDtoSchema(configSchema, "search");
         for (const key in dtoSearchSchema.properties) {
@@ -43,6 +46,19 @@ export const useSchema = function () {
         }
         searchSchema.value = dtoSearchSchema;
         searchConfig.value = sConfig.searchConfig;
+
+        //构造 components ={comKey:{schema:{},config:{}}}
+        const { componentConfig } = sConfig;
+        if (componentConfig && Object.keys(componentConfig).length > 0) {
+          const dtoComponents = {};
+          for (const comName in componentConfig) {
+            dtoComponents[comName] = {
+              schema: buildDtoSchema(configSchema, comName),
+              config: componentConfig[comName],
+            };
+            components.value = dtoComponents;
+          }
+        }
       });
     }
   };
@@ -72,10 +88,15 @@ export const useSchema = function () {
         dtoProps = Object.assign({}, dtoProps, {
           option: props[`${comName}Option`],
         });
+
+        //处理required字段
+        const { required } = _schema;
+        if (required && required.find((pk) => pk === key)) {
+          dtoProps.option.required = true;
+        }
         dtoSchema.properties[key] = dtoProps;
       }
     }
-
     return dtoSchema;
   };
 
@@ -102,5 +123,6 @@ export const useSchema = function () {
     tableConfig,
     searchSchema,
     searchConfig,
+    components,
   };
 };

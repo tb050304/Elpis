@@ -80,7 +80,8 @@
                          }
                     },
                     ...
-                }
+                },
+                required:[],//标记哪些字段是必填项
             }, 
             //table相关配置
              tableConfig:{
