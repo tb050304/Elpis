@@ -43,9 +43,10 @@ module.exports = {
     //加载extend
     extendLoader(app);
     console.log(`-- [start] load extend done --`);
-    //加载 middleware
-    middlewareLoader(app);
-    console.log(`-- [start] load middleware done --`);
+
+    //加载service
+    serviceLoader(app);
+    console.log(`-- [start] load service done --`);
 
     //加载routerSchema
     routerSchemaLoader(app);
@@ -55,9 +56,9 @@ module.exports = {
     controllerLoader(app);
     console.log(`-- [start] load controller done --`);
 
-    //加载service
-    serviceLoader(app);
-    console.log(`-- [start] load service done --`);
+    //加载 middleware
+    middlewareLoader(app);
+    console.log(`-- [start] load middleware done --`);
 
     //注册全局中间件
     try {

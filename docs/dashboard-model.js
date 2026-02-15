@@ -51,7 +51,7 @@
                         tableOption:{
                             ...elTableColumnConfig, //标准el-table-column 配置
                             toFixed:0,//保留小数点后几位
-                            visiable:true,// 默认为true(false表示不在表单中显示)
+                            visible:true,// 默认为true(false表示不在表单中显示)
                         },
                          //字段在 schema-bar 中的相关配置
                          searchOption:{
@@ -64,23 +64,57 @@
 
                             //comType==='dynamicSelect'
                             api:''
+                         },
+                         //字段在不同动态 component 中的相关配置，前缀对应 componentComfig 中的键值
+                         //如：componentConfig.createForm,这里对应createFormOption
+                         //字段在 createForm 中相关配置
+                         createFormOption:{
+                            ...eleComponentConfig,//标准 el-component 配置
+                            comType:'',//控件类型 input/select/input-number
+                            visible:true,//是否展示(true/false),默认为true
+                            disabled:false,//是否禁用（true/false），默认为false
+                            default:'',//默认值
+
+                            //comType==='select'时生效
+                            enumList:[]//枚举列表
+                         },
+                         //字段在editForm表单中的相关配置
+                         editFormOption:{
+                            ...eleComponentConfig,//标准 el-component 配置
+                             comType:'',//控件类型 input/select/input-number
+                            visible:true,//是否展示(true/false),默认为true
+                            disabled:false,//是否禁用（true/false），默认为false
+                            default:'',//默认值
+                            
+                            //comType==='select'时生效
+                            enumList:[]//枚举列表
+                         },
+                         detailPanelOption:{
+                            ...eleComponentConfig//标准 el-component 配置
                          }
                     },
                     ...
-                }
+                },
+                required:[],//标记哪些字段是必填项
             }, 
             //table相关配置
              tableConfig:{
                 headeruButtons:[{
                     label:'',//按钮中文名
                     eventKey:'',//按钮事件名
-                    eventOption:{},//按钮事件具体配置
+                    //按钮事件具体配置
+                    eventOption:{
+                        //当eventKey==='showComponent'
+                        comName:''//组件名称
+                    },
                     ...elButtonConfig//标准el-button配置
                 }...],
                 rowButtons:[{
                     label:'',//按钮中文名
                     eventKey:'',//按钮事件名
                      eventOption:{
+                         //当eventKey==='showComponent'
+                        comName:'',//组件名称
                         //当eventKey==='remove'
                         params:{
                             //paramKey=参数的键值
@@ -92,7 +126,27 @@
                 }...],
              },
              searchConfig:{},//search-bar相关配置
-             components:{},//模块组件
+             //动态组件 相关配置
+             componentConfig:{
+                //create-form 表单相关配置
+                createForm:{
+                    title:'',//表单标题
+                    saveBtnText:'',//保存按钮文案
+                },
+                //edit-form表单相关配置
+                editForm:{
+                    mainKey:'',//表单主键，用于唯一标识要修改的数据对象
+                    title:'',//表单标题
+                    saveBtnText:'',//保存按钮文案
+                },
+                //detail-panel 相关配置
+                detailPanel:{
+                    mainKey:'',//表单主键，用于唯一标识要修改的数据对象
+                    title:'',//表单标题
+                }
+                //...支持用户动态扩展
+
+             },
         }
       
     }, ...]

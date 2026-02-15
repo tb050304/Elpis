@@ -12,7 +12,7 @@
     >
       <!-- 展示子组件 -->
       <component
-        :ref="handleSearchComList"
+        :ref="searchComList"
         :is="SearchItemConfig[schemaItem.option?.comType]?.component"
         :schemaKey="key"
         :schema="schemaItem"
@@ -61,9 +61,6 @@ const { schema } = toRefs(props);
 const emit = defineEmits(["load", "search", "reset"]);
 
 const searchComList = ref([]);
-const handleSearchComList = (el) => {
-  searchComList.value.push(el);
-};
 
 const getValue = () => {
   let dtoObj = {};
