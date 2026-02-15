@@ -60,8 +60,6 @@ const EventHandlerMap = {
 
 const onTableOperate = ({ btnConfig, rowData }) => {
   const { eventKey } = btnConfig;
-  console.log("btnConfig", btnConfig);
-  console.log("eventKey", eventKey);
   if (EventHandlerMap[eventKey]) {
     EventHandlerMap[eventKey]({ btnConfig, rowData });
   }
@@ -82,6 +80,14 @@ function showComponent({ btnConfig, rowData }) {
   }
   comRef.show(rowData);
 }
+
+//响应组件事件
+const onComponentCommand = (data) => {
+  const { event } = data;
+  if (event === "loadTableData") {
+    tablePanelRef.value.loadTableData();
+  }
+};
 </script>
 
 <style lang="less" scoped>
