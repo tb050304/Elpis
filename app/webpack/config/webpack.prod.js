@@ -34,15 +34,20 @@ const webpackConfig = merge.smart(baseConfig, {
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "happypack/loader?id=css"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          `${require.resolve("happypack/loader")}?id=css`,
+        ],
       },
       {
         test: /\.js$/,
         include: [
-          //只对业务代码进行babel，加快webpack打包速度
+          //处理 elpis 目录
+          path.resolve(__dirname, "../../pages"),
+          //处理 业务 目录
           path.resolve(process.cwd(), "./app/pages"),
         ],
-        use: ["happypack/loader?id=js"],
+        use: [`${require.resolve("happypack/loader")}?id=js`],
       },
     ],
   },
@@ -70,9 +75,9 @@ const webpackConfig = merge.smart(baseConfig, {
       ...happypackCommonConfig,
       id: "js",
       loaders: [
-        `babel-loader?${JSON.stringify({
-          presets: ["@babel/preset-env"],
-          plugins: ["@babel/plugin-transform-runtime"],
+        `${require.resolve("babel-loader")}?${JSON.stringify({
+          presets: [require.resolve("@babel/preset-env")],
+          plugins: [require.resolve("@babel/plugin-transform-runtime")],
         })}`,
       ],
     }),
@@ -82,7 +87,7 @@ const webpackConfig = merge.smart(baseConfig, {
       id: "css",
       loaders: [
         {
-          path: "css-loader",
+          path: require.resolve("css-loader"),
           options: {
             importLoaders: 1,
           },

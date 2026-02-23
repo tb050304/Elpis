@@ -17,20 +17,36 @@ const { sep } = path;
  */
 
 module.exports = (app) => {
-  //读取 app/service/**/**.js下所有的文件
-  const servicePath = path.resolve(app.businessPath, `.${sep}service`);
-  const fileList = glob.sync(path.resolve(servicePath, `.${sep}**${sep}**.js`));
-
-  //遍历所有文件目录，把内容加载到app.service下
   const service = {};
-  fileList.forEach((file) => {
+  //读取 elpis/app/service/**/**.js下所有的文件
+  const elpisServicePath = path.resolve(
+    __dirname,
+    `..${sep}..${sep}app${sep}service`,
+  );
+  const elpisFileList = glob.sync(
+    path.resolve(elpisServicePath, `.${sep}**${sep}**.js`),
+  );
+  elpisFileList.forEach((file) => {
+    handleFile(file);
+  });
+  //读取 业务/app/service/**/**.js下所有的文件
+  const businessServicePath = path.resolve(app.businessPath, `.${sep}service`);
+  const businessFileList = glob.sync(
+    path.resolve(businessServicePath, `.${sep}**${sep}**.js`),
+  );
+  businessFileList.forEach((file) => {
+    handleFile(file);
+  });
+  //把内容加载到app.service下
+
+  function handleFile(file) {
     //提取文件名称
     let name = path.resolve(file);
 
     //截取路径app/services/custom-module/custom-service=>custom-module/custom-service
     name = name.substring(
       name.lastIndexOf(`service${sep}`) + `service${sep}`.length,
-      name.lastIndexOf(".")
+      name.lastIndexOf("."),
     );
 
     //把'-'统一改为驼峰式,custom-module/custom-service.js=>customModule.customService
@@ -50,6 +66,6 @@ module.exports = (app) => {
         tempService = tempService[names[i]];
       }
     }
-  });
+  }
   app.service = service;
 };
