@@ -42,8 +42,10 @@ const webpackConfig = merge.smart(baseConfig, {
       {
         test: /\.js$/,
         include: [
-          //只对业务代码进行babel，加快webpack打包速度
+          //处理 elpis 目录
           path.resolve(__dirname, "../../pages"),
+          //处理 业务 目录
+          path.resolve(process.cwd(), "./app/pages"),
         ],
         use: [`${require.resolve("happypack/loader")}?id=js`],
       },

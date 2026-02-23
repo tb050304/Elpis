@@ -7,7 +7,7 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 
 import "./asserts/custom.css";
 
-import pinia from "$store";
+import pinia from "$elpisStore";
 
 import { createRouter, createWebHistory } from "vue-router";
 
