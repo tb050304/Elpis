@@ -17,15 +17,32 @@ const { sep } = path;
  */
 
 module.exports = (app) => {
-  //读取 app/controller/**/**.js下所有的文件
-  const controllerPath = path.resolve(app.businessPath, `.${sep}controller`);
-  const fileList = glob.sync(
-    path.resolve(controllerPath, `.${sep}**${sep}**.js`),
-  );
-
-  //遍历所有文件目录，把内容加载到app.controller下
   const controller = {};
-  fileList.forEach((file) => {
+  //读取 elpis/app/controller/**/**.js下所有的文件
+  const elpisControllerPath = path.resolve(
+    __dirname,
+    `..${sep}..${sep}app${sep}controller`,
+  );
+  const elpisFileList = glob.sync(
+    path.resolve(elpisControllerPath, `.${sep}**${sep}**.js`),
+  );
+  elpisFileList.forEach((file) => {
+    handleFile(file);
+  });
+  //读取 业务/app/controller/**/**.js下所有的文件
+  const businessControllerPath = path.resolve(
+    app.businessPath,
+    `.${sep}controller`,
+  );
+  const businessFileList = glob.sync(
+    path.resolve(businessControllerPath, `.${sep}**${sep}**.js`),
+  );
+  businessFileList.forEach((file) => {
+    handleFile(file);
+  });
+
+  //把内容加载到app.controller下
+  function handleFile(file) {
     //提取文件名称
     let name = path.resolve(file);
 
@@ -52,6 +69,6 @@ module.exports = (app) => {
         tempController = tempController[names[i]];
       }
     }
-  });
+  }
   app.controller = controller;
 };

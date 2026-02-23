@@ -60,12 +60,21 @@ module.exports = {
     middlewareLoader(app);
     console.log(`-- [start] load middleware done --`);
 
-    //注册全局中间件
+    //注册 elpis 全局中间件
+    const elpisMiddlewarePath = path.resolve(
+      __dirname,
+      `..${sep}app${sep}middleware.js`,
+    );
+    const elpisMiddleware = require(elpisMiddlewarePath);
+    elpisMiddleware(app);
+    console.log(`-- [start] load global elpis middleware file.`);
+
+    //注册业务全局中间件
     try {
       require(`${app.businessPath}${sep}middleware.js`)(app);
-      console.log(`-- [start] load global middleware file.`);
+      console.log(`-- [start] load global business middleware file.`);
     } catch (e) {
-      // console.log("[exception] there is no global middleware file.");
+      console.log("[exception] there is no global business middleware file.");
       console.log(e);
     }
 

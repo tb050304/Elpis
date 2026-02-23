@@ -15,19 +15,36 @@ const { sep } = path;
  */
 
 module.exports = (app) => {
-  //读取 app/extend/**.js下所有的文件
-  const extendPath = path.resolve(app.businessPath, `.${sep}extend`);
-  const fileList = glob.sync(path.resolve(extendPath, `.${sep}**${sep}**.js`));
+  //读取 elpis/app/extend/**.js下所有的文件
+  const elpisExtendPath = path.resolve(
+    __dirname,
+    `..${sep}..${sep}app${sep}extend`,
+  );
+  const elipisFileList = glob.sync(
+    path.resolve(elpisExtendPath, `.${sep}**${sep}**.js`),
+  );
+  elipisFileList.forEach((file) => {
+    handleFile(file);
+  });
 
-  //遍历所有文件目录，把内容加载到app.extend下
-  fileList.forEach((file) => {
+  //读取 业务/app/extend/**.js下所有的文件
+  const businessExtendPath = path.resolve(app.businessPath, `.${sep}extend`);
+  const businessFileList = glob.sync(
+    path.resolve(businessExtendPath, `.${sep}**${sep}**.js`),
+  );
+  businessFileList.forEach((file) => {
+    handleFile(file);
+  });
+
+  //把内容加载到app.extend下
+  function handleFile(file) {
     //提取文件名称
     let name = path.resolve(file);
 
     //截取路径app/extends/custom-extend=>custom-extend
     name = name.substring(
       name.lastIndexOf(`extend${sep}`) + `extend${sep}`.length,
-      name.lastIndexOf(".")
+      name.lastIndexOf("."),
     );
 
     //把'-'统一改为驼峰式,custom-module/custom-extend.js=>customModule.customExtend
@@ -42,5 +59,5 @@ module.exports = (app) => {
     }
     //挂载extend到app上
     app[name] = require(path.resolve(file))(app);
-  });
+  }
 };
