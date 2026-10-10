@@ -12,7 +12,7 @@
     >
       <!-- 展示子组件 -->
       <component
-        :ref="searchComList"
+        ref="searchComList"
         :is="SearchItemConfig[schemaItem.option?.comType]?.component"
         :schemaKey="key"
         :schema="schemaItem"
